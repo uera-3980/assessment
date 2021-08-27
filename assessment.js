@@ -1,4 +1,4 @@
-'user strict';
+''user strict';
 const userNameInput = document.getElementById('user-name');
 const assessmentButton = document.getElementById('assessment');
 const resultDivided = document.getElementById('result-area');
@@ -14,10 +14,22 @@ assessmentButton.onclick = () =>{
     'https://twitter.com/intent/tweet?button_hashtag='+
     encodeURIComponent('あなたのいいところ')+
     '&ref_src=twsrc%5Etfw'
+  function assessment(userName){
+        let  sumOfCharCode = 0;
+        for (let i =0;
+            i< userName.length;
+            i++){
+                sumOfCharCode = sumOfCharCode+userName.charCodeAt(i)
+            }
+            const index = sumOfCharCode % answers.length;
+            let result = answers[index];
+            result = result.replaceAll('{userName}',userName);
+        return result;
+    }
 
     anchor.setAttribute('href',hrefValue);
     anchor.className = 'twitter-hashtag-button';
-    anchor.setAttribute('data-text',result);
+    anchor.setAttribute=('data-text',result);
     anchor.innerText = 'Tweet #あなたのいいところ';
     tweetDivided.appendChild(anchor);
   
@@ -41,7 +53,7 @@ assessmentButton.onclick();
     }
 };
 const answers=[
-'{userName}のいいところは声です。{userName}の特徴的な声は皆を惹きつけ、心に残ります。',
+'{userame}のいいところは声です。{userName}の特徴的な声は皆を惹きつけ、心に残ります。',
 '{userName}のいいところはまなざしです。{userName}に見つめられた人は、気になって仕方がないでしょう。',
 '{userName}のいいところは情熱です。{userName}の情熱に周りの人は感化されます。',
 '{userName}のいいところは厳しさです。{userName}の厳しさがものごとをいつも成功に導きます。',
@@ -60,15 +72,3 @@ const answers=[
 ];
 /*@param{string}
 @return{string}*/
-function assessment(userName){
-    let  sumOfCharCode = 0;
-    for (let i =0;
-        i< userName.length;
-        i++){
-            sumOfCharCode = sumOfCharCode+userName.charCodeAt(i)
-        }
-        const index = sumOfCharCode % answers.length;
-        let result = answers[index];
-        result = result.replaceAll('{userName}',userName);
-    return result;
-}
