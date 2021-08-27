@@ -11,16 +11,26 @@ function removeChildren(element){
 
 assessmentButton.onclick = () =>{
     const userName = userNameInput.value;
-    if (userName === 0){
+    if (userName.length === 0){
         return;
     }
-    tweetDivided.innerText="";
+
+    removeAllChildren(resultDivided);
+    const header = document.createElement('h3');
+    header.innerText = '診断結果';
+    resultDivided.appendChild(header);
+
+const paragraph = document.createElement('p');
+const result = assessment(userName);
+paragraph.innerText = result;
+resultDivided.appendChild(paragraph);
+
+removeAllChildren(tweetDivided);
     const anchor = document.createElement('a');
     const hrefValue = 
     'https://twitter.com/intent/tweet?button_hashtag='+
     encodeURIComponent('あなたのいいところ')+
     '&ref_src=twsrc%5Etfw'
-
     anchor.setAttribute('href',hrefValue);
     anchor.className = 'twitter-hashtag-button';
     anchor.setAttribute=('data-text',result);
@@ -30,21 +40,6 @@ assessmentButton.onclick = () =>{
     const script = document.createElement('script');
     script.setAttribute('scr','htttps://platform.twitter.com/widgets.js');
     tweetDivided.appendChild(script);
-    
-    resultDivided.innerText="";
-    const header = document.createElement('h3');
-header.innerText = '診断結果';
-resultDivided.appendChild(header);
-
-const paragraph = document.createElement('p');
-const result = assessment(userName);
-paragraph.innerText = result;
-resultDivided.appendChild(paragraph);
-};
-userNameInput.onkeydown = event => {
-    if(event.key === 'Enter'){
-assessmentButton.onclick();
-    }
 };
 const answers=[
 '{userame}のいいところは声です。{userName}の特徴的な声は皆を惹きつけ、心に残ります。',
