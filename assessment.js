@@ -3,6 +3,12 @@ const userNameInput = document.getElementById('user-name');
 const assessmentButton = document.getElementById('assessment');
 const resultDivided = document.getElementById('result-area');
 const tweetDivided = document.getElementById('tweet-area');
+function removeChildren(element){
+    while(element.firstChild){
+        element.removeChildren(element.firstChild);
+    }
+}
+
 assessmentButton.onclick = () =>{
     const userName = userNameInput.value;
     if (userName === 0){
@@ -14,18 +20,6 @@ assessmentButton.onclick = () =>{
     'https://twitter.com/intent/tweet?button_hashtag='+
     encodeURIComponent('あなたのいいところ')+
     '&ref_src=twsrc%5Etfw'
-  function assessment(userName){
-        let  sumOfCharCode = 0;
-        for (let i =0;
-            i< userName.length;
-            i++){
-                sumOfCharCode = sumOfCharCode+userName.charCodeAt(i)
-            }
-            const index = sumOfCharCode % answers.length;
-            let result = answers[index];
-            result = result.replaceAll('{userName}',userName);
-        return result;
-    }
 
     anchor.setAttribute('href',hrefValue);
     anchor.className = 'twitter-hashtag-button';
@@ -72,3 +66,15 @@ const answers=[
 ];
 /*@param{string}
 @return{string}*/
+function assessment(userName){
+    let  sumOfCharCode = 0;
+    for (let i =0;
+        i< userName.length;
+        i++){
+            sumOfCharCode = sumOfCharCode+userName.charCodeAt(i)
+        }
+        const index = sumOfCharCode % answers.length;
+        let result = answers[index];
+        result = result.replaceAll('{userName}',userName);
+    return result;
+}
